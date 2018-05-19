@@ -1,0 +1,7 @@
+<h1>Posts Index</h1>
+
+<% @posts.each do |p| %>
+  <%= p.title %><br>
+  <%= p.content %><br>
+  posted by: <%= p.user.email %><br><br>
+<% end %>
