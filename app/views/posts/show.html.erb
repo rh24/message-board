@@ -1,12 +1,31 @@
-<h1><%= @post.title %></h1>
-<p><%= @post.content %></p>
-<p>posted by: <strong><%= @post.user.email %></strong> on <em><%= @post.date_published %></em></p>
+<div class="container">
+  <h1><%= @post.title %></h1>
+  <p><%= @post.content %></p>
+  <p>posted by: <strong><%= @post.user.email %></strong> on <em><%= @post.date_published %></em></p>
 
-<% if @post.user == current_user %>
-  <%= link_to "Delete Post", post_path(@post), :method => 'DELETE' %>
-<% end %>
-<button type="button" name="button">New Reply</button>
+  <% if @post.user == current_user %>
+    <%= link_to "Delete Post", post_path(@post), :method => 'DELETE' %>
+  <% end %>
+  <button type="button" id="<%= @post.id %>"%>New Reply</button>
+</div>
+
+<div class="reply-box">
+
+</div>
 
 <script type="text/javascript">
-
+  $('button').on('click', function (e) {
+    let post = $.get(`/posts/${e.target.id}.json`, function (data) {
+      // debugger;
+      $('.reply-box').append(`<br>
+        <form>
+          <div class="container">
+            <label>Replying to ${data["title"]}</label>
+            <input type="textarea" placeholder="Your comment here..." class="form-control-sm">
+            </input>
+          <div>
+        </form>
+      `)
+    })
+  })
 </script>
