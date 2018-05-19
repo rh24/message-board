@@ -9,6 +9,7 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     if @post.save
       redirect_to post_path(@post)
+
     else
       render 'new'
       flash[:message] = "Fix me"
@@ -20,6 +21,10 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: @posts }
+    end
   end
 
   def update

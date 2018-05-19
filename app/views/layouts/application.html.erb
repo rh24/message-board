@@ -28,7 +28,7 @@
         <%= link_to "Home", root_path, :class => 'nav-link' %><span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a href="#" id="myPosts" class="nav-link">My Posts</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -57,6 +57,22 @@
     </form>
   </div>
 </nav>
+<script type="text/javascript">
+  $('#myPosts').on('click', function (e) {
+    e.preventDefault();
+    $.get(`/posts.json`, function (data) {
+      data.forEach(function (el) {
+        $('#posts-index').append(`
+          <div id="post-${el["id"]}">
+          <h3>${el["title"]}</h3>
+          <p>${el["content"]}</p>
+          </div>
+        `)
+      })
+    })
+  })
+</script>
+  <body>
     <%= yield %>
   </body>
 </html>
